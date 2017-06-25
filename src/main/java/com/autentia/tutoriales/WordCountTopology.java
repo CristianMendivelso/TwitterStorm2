@@ -2,6 +2,7 @@ package com.autentia.tutoriales;
 
 import backtype.storm.Config;
 import backtype.storm.LocalCluster;
+import backtype.storm.StormSubmitter;
 import backtype.storm.generated.AlreadyAliveException;
 import backtype.storm.generated.InvalidTopologyException;
 import backtype.storm.topology.TopologyBuilder;
@@ -22,9 +23,11 @@ public class WordCountTopology {
 		builder.setBolt("countPrinterBolt", new CountPrinterBolt(), 10).fieldsGrouping("wordCounterBolt", new Fields("word"));
 
 		final Config conf = new Config();
-		conf.setDebug(false);
+		//conf.setDebug(false);
+                conf.setNumWorkers(3);
+                StormSubmitter.submitTopology("words", conf, builder.createTopology());
 
-		final LocalCluster cluster = new LocalCluster();
-		cluster.submitTopology("wordCountTopology", conf, builder.createTopology());
+	//	final LocalCluster cluster = new LocalCluster();
+	//	cluster.submitTopology("wordCountTopology", conf, builder.createTopology());
 	}
 }
