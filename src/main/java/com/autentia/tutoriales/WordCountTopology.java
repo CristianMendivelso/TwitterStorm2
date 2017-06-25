@@ -1,21 +1,22 @@
 package com.autentia.tutoriales;
 
-import backtype.storm.Config;
-import backtype.storm.LocalCluster;
-import backtype.storm.StormSubmitter;
-import backtype.storm.generated.AlreadyAliveException;
-import backtype.storm.generated.InvalidTopologyException;
-import backtype.storm.topology.TopologyBuilder;
-import backtype.storm.tuple.Fields;
+import org.apache.storm.Config;
+import org.apache.storm.LocalCluster;
+import org.apache.storm.StormSubmitter;
+import org.apache.storm.generated.AlreadyAliveException;
+import org.apache.storm.generated.InvalidTopologyException;
+import org.apache.storm.topology.TopologyBuilder;
+import org.apache.storm.tuple.Fields;
 
 import com.autentia.tutoriales.bolt.CountPrinterBolt;
 import com.autentia.tutoriales.bolt.TweetSplitterBolt;
 import com.autentia.tutoriales.bolt.WordCounterBolt;
 import com.autentia.tutoriales.spout.TweetsStreamingConsumerSpout;
+import org.apache.storm.generated.AuthorizationException;
 
 public class WordCountTopology {
 
-	public static void main(String... args) throws AlreadyAliveException, InvalidTopologyException {
+	public static void main(String... args) throws AlreadyAliveException, InvalidTopologyException, AuthorizationException {
 		final TopologyBuilder builder = new TopologyBuilder();
 		builder.setSpout("twitterSpout", new TweetsStreamingConsumerSpout());
 		builder.setBolt("tweetSplitterBolt", new TweetSplitterBolt(), 10).shuffleGrouping("twitterSpout");
@@ -27,7 +28,7 @@ public class WordCountTopology {
                 conf.setNumWorkers(3);
                 StormSubmitter.submitTopology("words", conf, builder.createTopology());
 
-	//	final LocalCluster cluster = new LocalCluster();
-	//	cluster.submitTopology("wordCountTopology", conf, builder.createTopology());
+		//final LocalCluster cluster = new LocalCluster();
+		//cluster.submitTopology("wordCountTopology", conf, builder.createTopology());
 	}
 }
