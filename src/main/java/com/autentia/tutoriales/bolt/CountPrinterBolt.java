@@ -4,6 +4,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -29,18 +30,38 @@ public class CountPrinterBolt extends BaseRichBolt {
 		String ruta = "/home/administrador/storm/output/archivo.txt";
                 File archivo = new File(ruta);
                 BufferedWriter bw = null;
-            try {
-                bw = new BufferedWriter(new FileWriter(archivo));
-            } catch (IOException ex) {
-                Logger.getLogger(CountPrinterBolt.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            try {
-                bw.write(String.format("%s:%s", word, count.toString()));
-                bw.close();
+                
+                if(!archivo.exists()) {
+                    try {
+                        bw = new BufferedWriter(new FileWriter(archivo));
+                    } catch (IOException ex) {
+                        Logger.getLogger(CountPrinterBolt.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    try {
+                        bw.write(String.format("%s:%s", word, count.toString()));
+                        bw.close();
+                    } catch (IOException ex) {
+                        Logger.getLogger(CountPrinterBolt.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+                else{
+                    try {
+                        bw = new BufferedWriter(new FileWriter(archivo));
+                    } catch (IOException ex) {
+                        Logger.getLogger(CountPrinterBolt.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    PrintWriter wr = new PrintWriter(bw);
+                    wr.append(String.format("%s:%s", word, count.toString()));
+                    wr.close();
+                    try {
+                        bw.close();
+                    } catch (IOException ex) {
+                        Logger.getLogger(CountPrinterBolt.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                        }
 
-            } catch (IOException ex) {
-                Logger.getLogger(CountPrinterBolt.class.getName()).log(Level.SEVERE, null, ex);
-            }
+                
+            
             
 	}
 
