@@ -36,6 +36,7 @@ public class CountPrinterBolt extends BaseRichBolt {
                 FileWriter fw = new FileWriter(file.getAbsoluteFile(),true);
                 BufferedWriter bw = new BufferedWriter(fw);
                 bw.write(String.format("%s:%s", word, count.toString()));
+                bw.write("\n");
                 bw.close();
                 } 
                 catch (IOException e) {

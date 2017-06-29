@@ -25,7 +25,7 @@ public class WordCountTopology {
 
 		final Config conf = new Config();
 		//conf.setDebug(false);
-                conf.setNumWorkers(4);
+                conf.setNumWorkers(5);
                 StormSubmitter.submitTopology("words", conf, builder.createTopology());
 
 		//final LocalCluster cluster = new LocalCluster();
