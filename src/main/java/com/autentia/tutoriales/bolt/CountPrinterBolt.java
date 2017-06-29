@@ -25,43 +25,22 @@ public class CountPrinterBolt extends BaseRichBolt {
 
 	@Override
 	public void execute(Tuple tuple) {
+                try{
 		final String word = tuple.getStringByField("word");
 		final MutableInt count = (MutableInt) tuple.getValueByField("count");
 		String ruta = "/home/administrador/storm/output/archivo.txt";
-                File archivo = new File(ruta);
-                BufferedWriter bw = null;
-                
-                if(!archivo.exists()) {
-                    try {
-                        bw = new BufferedWriter(new FileWriter(archivo));
-                    } catch (IOException ex) {
-                        Logger.getLogger(CountPrinterBolt.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                    try {
-                        bw.write(String.format("%s:%s", word, count.toString()));
-                        bw.close();
-                    } catch (IOException ex) {
-                        Logger.getLogger(CountPrinterBolt.class.getName()).log(Level.SEVERE, null, ex);
-                    }
+                File file = new File(ruta);
+                if (!file.exists()) {
+                    file.createNewFile();
                 }
-                else{
-                    try {
-                        bw = new BufferedWriter(new FileWriter(archivo));
-                    } catch (IOException ex) {
-                        Logger.getLogger(CountPrinterBolt.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                    PrintWriter wr = new PrintWriter(bw);
-                    wr.append(String.format("%s:%s", word, count.toString()));
-                    wr.close();
-                    try {
-                        bw.close();
-                    } catch (IOException ex) {
-                        Logger.getLogger(CountPrinterBolt.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                        }
-
-                
-            
+                FileWriter fw = new FileWriter(file.getAbsoluteFile(),true);
+                BufferedWriter bw = new BufferedWriter(fw);
+                bw.write(String.format("%s:%s", word, count.toString()));
+                bw.close();
+                } 
+                catch (IOException e) {
+                    e.printStackTrace();
+                }
             
 	}
 
