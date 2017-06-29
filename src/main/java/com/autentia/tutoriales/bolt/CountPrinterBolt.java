@@ -36,9 +36,12 @@ public class CountPrinterBolt extends BaseRichBolt {
             }
             try {
                 bw.write(String.format("%s:%s", word, count.toString()));
+                bw.close();
+
             } catch (IOException ex) {
                 Logger.getLogger(CountPrinterBolt.class.getName()).log(Level.SEVERE, null, ex);
             }
+            
 	}
 
 	@Override

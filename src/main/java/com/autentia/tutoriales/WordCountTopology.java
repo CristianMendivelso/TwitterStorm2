@@ -25,10 +25,11 @@ public class WordCountTopology {
 
 		final Config conf = new Config();
 		//conf.setDebug(false);
-                conf.setNumWorkers(3);
+                conf.setNumWorkers(4);
                 StormSubmitter.submitTopology("words", conf, builder.createTopology());
 
 		//final LocalCluster cluster = new LocalCluster();
 		//cluster.submitTopology("wordCountTopology", conf, builder.createTopology());
 	}
 }
+
