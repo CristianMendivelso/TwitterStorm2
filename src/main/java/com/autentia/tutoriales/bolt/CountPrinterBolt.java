@@ -1,6 +1,12 @@
 package com.autentia.tutoriales.bolt;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.apache.commons.lang3.mutable.MutableInt;
 
 
@@ -20,8 +26,19 @@ public class CountPrinterBolt extends BaseRichBolt {
 	public void execute(Tuple tuple) {
 		final String word = tuple.getStringByField("word");
 		final MutableInt count = (MutableInt) tuple.getValueByField("count");
-		
-		System.out.println(String.format("%s:%s", word, count.toString()));
+		String ruta = "/home/administrador/storm/output/archivo.txt";
+                File archivo = new File(ruta);
+                BufferedWriter bw = null;
+            try {
+                bw = new BufferedWriter(new FileWriter(archivo));
+            } catch (IOException ex) {
+                Logger.getLogger(CountPrinterBolt.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            try {
+                bw.write(String.format("%s:%s", word, count.toString()));
+            } catch (IOException ex) {
+                Logger.getLogger(CountPrinterBolt.class.getName()).log(Level.SEVERE, null, ex);
+            }
 	}
 
 	@Override
