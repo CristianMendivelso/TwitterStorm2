@@ -67,6 +67,7 @@ public class TweetsStreamingConsumerSpout extends BaseRichSpout {
 			Utils.sleep(50);
 		} else {
 			collector.emit(new Values(status));
+			
 		}
 	}
 

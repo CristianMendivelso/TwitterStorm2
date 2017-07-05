@@ -6,10 +6,10 @@ import co.edu.icesi.ketal.core.State;
 @SuppressWarnings("all")
 public class Reaction {
   public static void reactionseqEventDetectorfirtsState() {
-    String msg = "Reaction detected :)";
-    System.out.println("----------------------------------------");
+    String msg = "Reaction detected :o High Frequency";
+    System.out.println("++++++++++++++++++++++++++++++++++++++");
     System.out.println(msg);
-    System.out.println("----------------------------------------");
+    System.out.println("++++++++++++++++++++++++++++++++++++++");
   }
   
   public static void verifyBefore(final Automaton automaton) {

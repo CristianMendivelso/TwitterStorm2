@@ -18,28 +18,28 @@ public aspect BoltExecute{
 	
 	final static Log logger = LogFactory.getLog(BoltExecute.class);
 	//seqEventDetector
-	//--------Evento: execute-------------
-	pointcut execute():
-		(pointComautentiatutorialesboltTweetSplitterBoltexecute() && if(GroupsControl.host("localGroup")));
+	//--------Evento: printer-------------
+	pointcut printer():
+		(pointComautentiatutorialesboltCountPrinterBoltexecute() && if(GroupsControl.host("localGroup")));
 		
-	//after() returning (Object o): execute() {
+	//after() returning (Object o): printer() {
 	//	System.out.println("[Aspectj] Returned normally with " + o);
 	//}
-	//after() throwing (Exception e): execute() {
+	//after() throwing (Exception e): printer() {
 	//	System.out.println("[Aspectj] Threw an exception: " + e);
 	//}
-	after(): execute(){
+	after(): printer(){
 		Automaton automata = SeqEventDetector.getInstance();
 		Reaction.verifyAfter(automata);
 		//System.out.println("[Aspectj] After: Returned or threw an Exception");
 		logger.debug("[Aspectj] After: Returned or threw an Exception");
 	}
-	before(): execute(){
+	before(): printer(){
 		EventHandler distribuidor = EventHandler.getInstance();
 		Automaton automata = SeqEventDetector.getInstance();
 		Map map = new HashMap<String, Object>();
 		//map.put("Automata", automata);
-		Event event = new NamedEvent("execute");
+		Event event = new NamedEvent("printer");
 		event.setLocalization(distribuidor.getAsyncAddress());
 		distribuidor.multicast(event, map);
 		if(!automata.evaluate(event)){
@@ -57,5 +57,5 @@ public aspect BoltExecute{
 		//}
 	}
 	
-	pointcut pointComautentiatutorialesboltTweetSplitterBoltexecute(): execution(* com.autentia.tutoriales.bolt.TweetSplitterBolt.execute(Tuple));
+	pointcut pointComautentiatutorialesboltCountPrinterBoltexecute(): execution(* com.autentia.tutoriales.bolt.CountPrinterBolt.execute(Tuple));
 }

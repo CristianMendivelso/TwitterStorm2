@@ -8,19 +8,20 @@ eventclass BoltExecute{
 	group localGroup{ localhost}
 	
 	automaton seqEventDetector(){
- 		start initialState: (execute -> firtsState);
- 		firtsState: (execute -> initialState);
+ 		start initialState: (printer -> firtsState)  ;
+ 		firtsState: (printer -> initialState);
  		end finalState;
  	}
  	
-	event execute(): execution(* com.autentia.tutoriales.bolt.TweetSplitterBolt.execute(Tuple)) && host(localGroup);
+	event printer(): execution(* com.autentia.tutoriales.bolt.CountPrinterBolt.execute(Tuple)) && host(localGroup);	
 		
  	reaction before seqEventDetector.firtsState{
-		String msg = "Reaction detected :)";
-		System.out.println("----------------------------------------");
+		String msg = "Reaction detected :o High Frequency";
+		System.out.println("++++++++++++++++++++++++++++++++++++++");
 		System.out.println(msg);
-		System.out.println("----------------------------------------");
+		System.out.println("++++++++++++++++++++++++++++++++++++++");
 
 	}
-	
+
+
 }

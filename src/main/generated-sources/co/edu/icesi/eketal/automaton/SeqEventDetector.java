@@ -60,35 +60,35 @@ public class SeqEventDetector {
     //Definición del estado: finalState
     String estadoFinalState = "finalState";
     estados.put(estadoFinalState, new State());
-    //Transicion de execute -> firtsState
+    //Transicion de printer -> firtsState
     estadoLlegada = "firtsState";
     if(!estados.containsKey(estadoLlegada)){
     	estados.put(estadoInitialState, new State());
     }
     caracter = (char)consecutivo;
     consecutivo++;
-    nombreEvento = "execute";
+    nombreEvento = "printer";
     if(!mapping.containsKey(nombreEvento)){
     	mapping.put(nombreEvento, caracter);
     	expressions.put(new DefaultEqualsExpression(new NamedEvent(nombreEvento)), mapping.get(nombreEvento));
     }
-    Transition initialStateExecute = new Transition(estados.get(estadoInitialState), estados.get(estadoLlegada), mapping.get(nombreEvento));
-    transitionSet.add(initialStateExecute);
+    Transition initialStatePrinter = new Transition(estados.get(estadoInitialState), estados.get(estadoLlegada), mapping.get(nombreEvento));
+    transitionSet.add(initialStatePrinter);
     
-    //Transicion de execute -> initialState
+    //Transicion de printer -> initialState
     estadoLlegada = "initialState";
     if(!estados.containsKey(estadoLlegada)){
     	estados.put(estadoFirtsState, new State());
     }
     caracter = (char)consecutivo;
     consecutivo++;
-    nombreEvento = "execute";
+    nombreEvento = "printer";
     if(!mapping.containsKey(nombreEvento)){
     	mapping.put(nombreEvento, caracter);
     	expressions.put(new DefaultEqualsExpression(new NamedEvent(nombreEvento)), mapping.get(nombreEvento));
     }
-    Transition firtsStateExecute = new Transition(estados.get(estadoFirtsState), estados.get(estadoLlegada), mapping.get(nombreEvento));
-    transitionSet.add(firtsStateExecute);
+    Transition firtsStatePrinter = new Transition(estados.get(estadoFirtsState), estados.get(estadoLlegada), mapping.get(nombreEvento));
+    transitionSet.add(firtsStatePrinter);
     
     //Estado final FinalState
     estados.get(estadoFinalState).setAccept(true);
