@@ -1,6 +1,12 @@
 package com.autentia.tutoriales;
 
 import org.apache.storm.tuple.Tuple;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.BufferedWriter;
+import java.io.IOException;
+
+
 
 eventclass BoltExecute{
 	
@@ -16,10 +22,19 @@ eventclass BoltExecute{
 	event printer(): execution(* com.autentia.tutoriales.bolt.CountPrinterBolt.execute(Tuple)) && host(localGroup);	
 		
  	reaction before seqEventDetector.firtsState{
-		String msg = "Reaction detected :o High Frequency";
-		System.out.println("++++++++++++++++++++++++++++++++++++++");
-		System.out.println(msg);
-		System.out.println("++++++++++++++++++++++++++++++++++++++");
+
+ 		String ruta = "/home/administrador/storm/output/eketal.txt";
+                File file = new File(ruta);
+                if (file.exists()) {
+                    FileWriter fw = new FileWriter(file.getAbsoluteFile(),true);
+	                BufferedWriter bw = new BufferedWriter(fw);
+	                bw.write("Reaction detected :o High Frequency");
+	                bw.write("\n");
+	                bw.close();
+                }
+                else{
+                	file.createNewFile();
+                }
 
 	}
 
