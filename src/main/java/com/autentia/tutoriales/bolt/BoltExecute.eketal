@@ -1,0 +1,26 @@
+package com.autentia.tutoriales;
+
+import backtype.storm.tuple.Tuple;
+
+eventclass BoltExecute{
+	
+
+	group localGroup{ localhost}
+	
+	automaton seqEventDetector(){
+ 		start initialState: (execute -> firtsState);
+ 		firtsState: (execute -> initialState);
+ 		end finalState;
+ 	}
+ 	
+	event execute(): execution(* com.autentia.tutoriales.bolt.TweetSplitterBolt.execute(Tuple)) && host(localGroup);
+		
+ 	reaction before seqEventDetector.firtsState{
+		String msg = "Reaction detected :)";
+		System.out.println("----------------------------------------");
+		System.out.println(msg);
+		System.out.println("----------------------------------------");
+
+	}
+	
+}
