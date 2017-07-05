@@ -1,0 +1,27 @@
+package com.autentia.tutoriales;
+
+import org.apache.storm.tuple.Tuple;
+
+eventclass BoltExecute{
+	
+
+	group localGroup{ localhost}
+	
+	automaton seqEventDetector(){
+ 		start initialState: (printer -> firtsState)  ;
+ 		firtsState: (printer -> initialState);
+ 		end finalState;
+ 	}
+ 	
+	event printer(): execution(* com.autentia.tutoriales.bolt.CountPrinterBolt.execute(Tuple)) && host(localGroup);	
+		
+ 	reaction before seqEventDetector.firtsState{
+		String msg = "Reaction detected :o High Frequency";
+		System.out.println("++++++++++++++++++++++++++++++++++++++");
+		System.out.println(msg);
+		System.out.println("++++++++++++++++++++++++++++++++++++++");
+
+	}
+
+
+}
