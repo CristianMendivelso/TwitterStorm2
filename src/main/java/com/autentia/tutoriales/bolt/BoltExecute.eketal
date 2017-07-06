@@ -6,24 +6,42 @@ import java.io.FileWriter;
 import java.io.BufferedWriter;
 import java.io.IOException;
 
-
-
 eventclass BoltExecute{
 	
 
-	group localGroup{ localGroup }
+	group localGroup{ localhost}
 	
 	automaton seqEventDetector(){
- 		start initialState: (printer -> firtsState)  ;
- 		firtsState: (printer -> initialState);
+ 		start initialState: (execute -> firtsState) || (printer -> secondState) ;
+ 		firtsState: (execute -> initialState) || (printer -> secondState) ;
+ 		secondState: (execute -> firtsState) || (printer -> initialState);
  		end finalState;
  	}
  	
-	event printer(): execution(* com.autentia.tutoriales.bolt.CountPrinterBolt.execute(Tuple)) && host(localGroup);	
+	event execute(): execution(* com.autentia.tutoriales.bolt.TweetSplitterBolt.execute(Tuple)) && host(localGroup);
+	
+	event printer(): execution(* com.autentia.tutoriales.bolt.CountPrinterBolt.execute(Tuple)) && host(localGroup);
 		
  	reaction before seqEventDetector.firtsState{
-
+ 		
  		String ruta = "/home/administrador/storm/output/eketal.txt";
+                File file = new File(ruta);
+                if (file.exists()) {
+                    FileWriter fw = new FileWriter(file.getAbsoluteFile(),true);
+	                BufferedWriter bw = new BufferedWriter(fw);
+	                bw.write("Reaction detected :) Low Frequency");
+	                bw.write("\n");
+	                bw.close();
+                }
+                else{
+                	file.createNewFile();
+                }
+ 		
+	}
+	
+	reaction after seqEventDetector.secondState{
+		
+		String ruta = "/home/administrador/storm/output/eketal.txt";
                 File file = new File(ruta);
                 if (file.exists()) {
                     FileWriter fw = new FileWriter(file.getAbsoluteFile(),true);
@@ -37,6 +55,5 @@ eventclass BoltExecute{
                 }
 
 	}
-
 
 }
