@@ -7,10 +7,13 @@ Este es un repositorio que se utilizará para un proyecto de investigación de l
 
 Se ha actualizado el proyecto para ser usado en apache storm 1.1.0, y se ha ampliado para ser usado no sólo en modo local si no también en modo cluster.
 
-Actualmente el repositorio contiene 2 ramas:
+Actualmente el repositorio contiene 5 ramas:
 
 -Master (Para Correr En Modo Local)
 -Cluster (Para Correr En Modo Cluster)
+-eketalhigh (Repositorio Para Correr en Modo Cluster Implementado Eketal De Alta Frecuencia)
+-clustereketal (Repositorio Para Correr en Modo Cluster Implementado Eketal De Media Frecuencia)
+-eketallowfrquency (Rama De Pruebas De La Herramienta Eketal)
 
 Rama Cluster: Para Ejecutar Esta Aplicación Es Necesario:
 
