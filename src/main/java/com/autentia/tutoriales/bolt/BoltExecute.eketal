@@ -1,6 +1,10 @@
 package com.autentia.tutoriales;
 
 import backtype.storm.tuple.Tuple;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.BufferedWriter;
+import java.io.IOException;
 
 eventclass BoltExecute{
 	
