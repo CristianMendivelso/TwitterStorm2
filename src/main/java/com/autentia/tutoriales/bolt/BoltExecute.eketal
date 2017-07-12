@@ -13,13 +13,21 @@ eventclass BoltExecute{
  		end finalState;
  	}
  	
-	event printer(): execution(* com.autentia.tutoriales.bolt.CountPrinterBolt.execute(Tuple)) && host(localGroup);	
+	event printer(): execution(* com.autentia.tutoriales.bolt.TweetSplitterBolt.execute(Tuple)) && host(localGroup);	
 		
  	reaction before seqEventDetector.firtsState{
-		String msg = "Reaction detected :o High Frequency";
-		System.out.println("++++++++++++++++++++++++++++++++++++++");
-		System.out.println(msg);
-		System.out.println("++++++++++++++++++++++++++++++++++++++");
+		String ruta = "/home/administrador/storm/output/eketal.txt";
+                File file = new File(ruta);
+                if (file.exists()) {
+                    FileWriter fw = new FileWriter(file.getAbsoluteFile(),true);
+	                BufferedWriter bw = new BufferedWriter(fw);
+	                bw.write("Reaction detected with Eketal");
+	                bw.write("\n");
+	                bw.close();
+                }
+                else{
+                	file.createNewFile();
+                }
 
 	}
 
