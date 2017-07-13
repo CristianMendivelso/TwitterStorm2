@@ -35,7 +35,8 @@ Para cambiar la cantidad de trabajadores solamente es editar la línea config.se
 en la clase *WordCountTopology.java* .
 
 En la clase CountPrinterBolt editar la ruta para generar el archivo de salida de una manera correcta
-		String ruta = "/home/administrador/storm/output/archivo.txt";
+		
+String ruta = "/home/administrador/storm/output/archivo.txt";
 
 
 Cualquier sugerencia respecto al respositorio por favor añadir una *Issue* .
