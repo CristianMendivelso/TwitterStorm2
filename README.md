@@ -34,9 +34,10 @@ En el nodo nimbus ir a la carpeta de apache storm y ejecutar el comando: **bin/s
 Para cambiar la cantidad de trabajadores solamente es editar la línea config.setNumWorkers(3); 
 en la clase *WordCountTopology.java* .
 
-En la clase CountPrinterBolt editar la ruta para generar el archivo de salida de una manera correcta
-		
-String ruta = "/home/administrador/storm/output/archivo.txt";
+
+En el **Modo Local**  la salida se genera por consola
+
+En el **Modo Cluster** la salida se genera en un archivo .txt el cual se aconseja cambiar de ruta en la clase  **CountPrinterBolt** 
 
 
 Cualquier sugerencia respecto al respositorio por favor añadir una *Issue* .
