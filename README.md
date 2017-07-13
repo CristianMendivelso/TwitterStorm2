@@ -1,7 +1,7 @@
 Contador de Palabras Utilizando API de Twitter y Apache Storm
 ================
 
-Este respoditorio contiene todo lo relacionado al proyecto: 
+Este repositorio contiene todo lo relacionado al proyecto: 
 Contador de Palabras de Twitter Utilizando la Herramienta **Apache Storm** Basado en https://github.com/jalonsoramos/storm-word-count y utilizando las caracterísitcas de Streaming del mismo.
 
 Además se presenta la implementación de la herramienta [Eketal](https://github.com/unicesi/eketal "Eketal") en este experimento.
