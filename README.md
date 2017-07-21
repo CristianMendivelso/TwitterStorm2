@@ -28,7 +28,10 @@ Actualmente el repositorio cuenta con 5 ramas:
 **Para Ejecutar Esta Aplicación Es Necesario:
 **
 Clonar el repositorio
-Ir a la carpeta del repositorio y ejecutar el comando : mvn clean package
+Ir a la carpeta del repositorio y ejecutar el comando : 
+
+mvn clean package
+
 En el nodo nimbus ir a la carpeta de apache storm y ejecutar el comando: **bin/storm jar /[ruta a la carpeta contenedora]/TwitterStorm2/target/storm-word-count-0.0.1-SNAPSHOT-jar-with-dependencies.jar com.autentia.tutoriales.WordCountTopology twitter2**
 
 Para cambiar la cantidad de trabajadores solamente es editar la línea config.setNumWorkers(3); 
