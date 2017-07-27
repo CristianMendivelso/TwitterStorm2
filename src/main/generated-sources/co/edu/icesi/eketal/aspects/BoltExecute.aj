@@ -12,6 +12,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import org.apache.commons.logging.Log;
@@ -24,7 +25,7 @@ public aspect BoltExecute{
 	//seqEventDetector
 	//--------Evento: printer-------------
 	pointcut printer():
-		(pointComautentiatutorialesboltCountPrinterBoltexecute() && if(GroupsControl.host("localGroup")));
+		(pointComautentiatutorialesboltTweetSplitterBoltexecute() && if(GroupsControl.host("localGroup")));
 		
 	//after() returning (Object o): printer() {
 	//	System.out.println("[Aspectj] Returned normally with " + o);
@@ -61,5 +62,5 @@ public aspect BoltExecute{
 		//}
 	}
 	
-	pointcut pointComautentiatutorialesboltCountPrinterBoltexecute(): execution(* com.autentia.tutoriales.bolt.CountPrinterBolt.execute(Tuple));
+	pointcut pointComautentiatutorialesboltTweetSplitterBoltexecute(): execution(* com.autentia.tutoriales.bolt.TweetSplitterBolt.execute(Tuple));
 }

@@ -25,23 +25,11 @@ public class CountPrinterBolt extends BaseRichBolt {
 
 	@Override
 	public void execute(Tuple tuple) {
-                try{
 		final String word = tuple.getStringByField("word");
 		final MutableInt count = (MutableInt) tuple.getValueByField("count");
-		String ruta = "/home/administrador/storm/output/archivo.txt";
-                File file = new File(ruta);
-                if (!file.exists()) {
-                    file.createNewFile();
-                }
-                FileWriter fw = new FileWriter(file.getAbsoluteFile(),true);
-                BufferedWriter bw = new BufferedWriter(fw);
-                bw.write(String.format("%s:%s", word, count.toString()));
-                bw.write("\n");
-                bw.close();
-                } 
-                catch (IOException e) {
-                    e.printStackTrace();
-                }
+		
+                System.out.println(String.format("%s:%s", word, count.toString()));
+                
             
 	}
 

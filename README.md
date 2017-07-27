@@ -35,3 +35,4 @@ En el **Modo Cluster** la salida se genera en un archivo .txt el cual se aconsej
 
 Cualquier sugerencia respecto al respositorio por favor añadir una *Issue* .
 
+# IssueStorm

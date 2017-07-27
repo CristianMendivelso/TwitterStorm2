@@ -5,55 +5,28 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.BufferedWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+
 
 eventclass BoltExecute{
+
 	
 
 	group localGroup{ localhost}
 	
 	automaton seqEventDetector(){
- 		start initialState: (execute -> firtsState) || (printer -> secondState) ;
- 		firtsState: (execute -> initialState) || (printer -> secondState) ;
- 		secondState: (execute -> firtsState) || (printer -> initialState);
+ 		start initialState: (printer -> firtsState)  ;
+ 		firtsState: (printer -> initialState);
  		end finalState;
  	}
  	
-	event execute(): execution(* com.autentia.tutoriales.bolt.TweetSplitterBolt.execute(Tuple)) && host(localGroup);
-	
-	event printer(): execution(* com.autentia.tutoriales.bolt.CountPrinterBolt.execute(Tuple)) && host(localGroup);
+	event printer(): execution(* com.autentia.tutoriales.bolt.TweetSplitterBolt.execute(Tuple)) && host(localGroup);	
 		
  	reaction before seqEventDetector.firtsState{
- 		
- 		String ruta = "/home/administrador/storm/output/eketal.txt";
-                File file = new File(ruta);
-                if (file.exists()) {
-                    FileWriter fw = new FileWriter(file.getAbsoluteFile(),true);
-	                BufferedWriter bw = new BufferedWriter(fw);
-	                bw.write("Reaction detected :) Low Frequency");
-	                bw.write("\n");
-	                bw.close();
-                }
-                else{
-                	file.createNewFile();
-                }
- 		
-	}
-	
-	reaction after seqEventDetector.secondState{
-		
-		String ruta = "/home/administrador/storm/output/eketal.txt";
-                File file = new File(ruta);
-                if (file.exists()) {
-                    FileWriter fw = new FileWriter(file.getAbsoluteFile(),true);
-	                BufferedWriter bw = new BufferedWriter(fw);
-	                bw.write("Reaction detected :o High Frequency");
-	                bw.write("\n");
-	                bw.close();
-                }
-                else{
-                	file.createNewFile();
-                }
+		System.out.println("------------------Reaction detected with Eketal--------------------------");
 
-	}
+		
+		}
+
 
 }

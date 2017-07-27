@@ -22,13 +22,28 @@ public class TweetSplitterBolt extends BaseRichBolt {
 
 	@Override
 	public void execute(Tuple tuple) {
-		final Status tweet = (Status) tuple.getValueByField("status");
-		final String[] words = tweet.getText().split(" ");
+                String id = tuple.getSourceComponent();
+                if (id.equals("twitterSpout")){
+                    final Status tweet = (Status) tuple.getValueByField("status");
+                    final String[] words = tweet.getText().split(" ");
 
-		for (String word : words) {
-			collector.emit(new Values(word));
-		}
-	}
+                    for (String word : words) {
+                            collector.emit(new Values(word));
+                    }
+                }
+                else{
+                    String sentence = tuple.getString(0);
+                    String[] words = sentence.split(" ");
+                    for(String word: words){
+                            word = word.trim();
+                            if(!word.isEmpty()){
+                                    word = word.toLowerCase();
+                                    collector.emit(new Values(word));
+                            }
+                    }
+                    collector.ack(tuple);
+                    }
+        }
 
 	@Override
 	public void declareOutputFields(OutputFieldsDeclarer declarer) {
